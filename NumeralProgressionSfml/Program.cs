@@ -119,10 +119,14 @@ namespace NumeralProgressionSfml
 
             Text timeText = new Text() { Font = font, CharacterSize = 16 };
             Text winText  = new Text() { Font = font, CharacterSize = 48, FillColor = Color.Red, DisplayedString = "WIN" };
+            winText.Position = new Vector2f(
+                windowWidth / 2 - winText.GetLocalBounds().Width / 2,
+                windowHeight / 2 - winText.GetLocalBounds().Height / 2
+            );
             Text loseText = new Text() { Font = font, CharacterSize = 48, FillColor = Color.Red, DisplayedString = "GAME OVER" };
             loseText.Position = new Vector2f(
-                windowWidth / 2 - loseText.GetGlobalBounds().Width / 2,
-                windowHeight / 2 - loseText.GetGlobalBounds().Height / 2
+                windowWidth / 2 - loseText.GetLocalBounds().Width / 2,
+                windowHeight / 2 - loseText.GetLocalBounds().Height / 2
             );
 
             while (window.IsOpen)
