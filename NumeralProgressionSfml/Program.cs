@@ -27,7 +27,7 @@ namespace NumeralProgressionSfml
                 bpp: 24
             );
 
-            var window = new RenderWindow(videoMode, "Kragmorta Game");
+            var window = new RenderWindow(videoMode, "NumeralProgressionSfml");
 
             Random      random = new(DateTime.Now.Millisecond);
             List<Shape> shapes = new(shapesCount);
