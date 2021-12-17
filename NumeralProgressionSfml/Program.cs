@@ -11,6 +11,14 @@ namespace NumeralProgressionSfml
     {
         static void Main(string[] args)
         {
+            float leftTimeSeconds = 30;
+
+            float shapeSize   = 50;
+            int   shapesCount = 10;
+
+            bool win  = false;
+            bool lose = false;
+
             uint windowWidth  = 800;
             uint windowHeight = 600;
             var videoMode = new VideoMode(
@@ -20,6 +28,12 @@ namespace NumeralProgressionSfml
             );
 
             var window = new RenderWindow(videoMode, "Kragmorta Game");
+
+            Random      random = new(DateTime.Now.Millisecond);
+            List<Shape> shapes = new(shapesCount);
+
+            Font       font  = new Font("arial.ttf");
+            List<Text> texts = new(shapesCount);
 
             window.Resized += (sender, eventArgs) => { window.SetView(new View(new FloatRect(0, 0, window.Size.X, window.Size.Y))); };
 
@@ -31,15 +45,6 @@ namespace NumeralProgressionSfml
             {
                 Loop = true
             };
-
-            Random      random = new(DateTime.Now.Millisecond);
-            List<Shape> shapes = new(100);
-
-            Font       font  = new Font("arial.ttf");
-            List<Text> texts = new(100);
-
-            float shapeSize   = 50;
-            int   shapesCount = 1;
 
             // Generate shapes
             for (int i = 0; i < shapesCount; i++)
@@ -63,7 +68,7 @@ namespace NumeralProgressionSfml
 
                 texts.Add(new Text((shapesCount - i).ToString(), font, 16) { FillColor = Color.Black });
             }
-            
+
             ApplyColorAlpha(shapes);
 
             for (int i = 0; i < shapesCount; i++)
@@ -81,9 +86,6 @@ namespace NumeralProgressionSfml
                                     );
             }
 
-            bool win  = false;
-            bool lose = false;
-            
             window.MouseButtonPressed += (sender, eventArgs) =>
             {
                 int i = shapes.Count - 1;
@@ -110,17 +112,14 @@ namespace NumeralProgressionSfml
             };
 
             Clock clock = new Clock();
-
             window.SetFramerateLimit(60);
-
-            float leftTimeSeconds = 3;
             sound.Play();
 
             RectangleShape timeBackground = new RectangleShape(new Vector2f(200, 50)) { FillColor = new Color(255, 255, 255, 50) };
 
             Text timeText = new Text() { Font = font, CharacterSize = 16 };
-            Text winText = new Text() { Font = font, CharacterSize = 48, FillColor = Color.Red, DisplayedString = "WIN"};
-            Text loseText = new Text() { Font = font, CharacterSize = 48, FillColor = Color.Red, DisplayedString = "GAME OVER"};
+            Text winText  = new Text() { Font = font, CharacterSize = 48, FillColor = Color.Red, DisplayedString = "WIN" };
+            Text loseText = new Text() { Font = font, CharacterSize = 48, FillColor = Color.Red, DisplayedString = "GAME OVER" };
             loseText.Position = new Vector2f(
                 windowWidth / 2 - loseText.GetGlobalBounds().Width / 2,
                 windowHeight / 2 - loseText.GetGlobalBounds().Height / 2
